@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0f" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0b0b0f;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top, #1d1d27 0%, #0b0b0f 45%, #050507 100%);
+      color: #ffffff;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 3px solid rgba(255, 255, 255, 0.15);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin-bottom: 18px;
+    }
+
+    .loading-text {
+      font-size: 15px;
+      letter-spacing: 1.5px;
+      text-transform: lowercase;
+      opacity: 0.9;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.45;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    iframe {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="loading-text">carregando</div>
+  </div>
+
+  <iframe
+    id="appFrame"
+    allowfullscreen
+    allow="camera; microphone; clipboard-read; clipboard-write; fullscreen"
+  ></iframe>
+
+  <script>
+    const APP_URL = "COLE_AQUI_O_LINK_DO_SEU_APPS_SCRIPT";
+
+    const iframe = document.getElementById("appFrame");
+    const loader = document.getElementById("loader");
+
+    iframe.src = APP_URL;
+
+    iframe.onload = () => {
+      setTimeout(() => {
+        loader.classList.add("hidden");
+      }, 500);
+    };
+
+    setTimeout(() => {
+      loader.classList.add("hidden");
+    }, 7000);
+  </script>
+</body>
+</html>
